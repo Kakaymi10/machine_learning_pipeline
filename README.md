@@ -58,7 +58,7 @@ This document outlines the schema for tracking water quality data. It includes d
   - **`Organic_carbon`**: Organic carbon concentration (e.g., in mg/L).
   - **`Trihalomethanes`**: Trihalomethanes concentration (e.g., in µg/L).
   - **`Turbidity`**: Turbidity of the water (e.g., in NTU).
-  - **`Potability`**: Indicator of water potability (0 for non-potable, 1 for potable).
+  - **`Potability`**: Indicator of water potability (0 for non-potable, 1 for potable). Initially set to NULL and updated based on model predictions.
 
 | Column Name         | Data Type | Constraints                | Description                                  |
 |---------------------|-----------|----------------------------|----------------------------------------------|
@@ -74,7 +74,7 @@ This document outlines the schema for tracking water quality data. It includes d
 | `Organic_carbon`    | FLOAT     | NOT NULL                   | Organic carbon concentration (e.g., in mg/L) |
 | `Trihalomethanes`   | FLOAT     | NOT NULL                   | Trihalomethanes concentration (e.g., in µg/L)|
 | `Turbidity`         | FLOAT     | NOT NULL                   | Turbidity of the water (e.g., in NTU)        |
-| `Potability`        | BOOLEAN   | NOT NULL                   | Water potability (0 for non-potable, 1 for potable) |
+| `Potability`        | BOOLEAN   | NULL                       | Water potability (0 for non-potable, 1 for potable), initially NULL and updated from predictions |
 
 ### Relationships
 
@@ -89,5 +89,4 @@ This document outlines the schema for tracking water quality data. It includes d
 
 ## Summary
 
-This schema provides a structured approach to managing and analyzing water quality data. By linking water quality records to both users and locations, it supports effective tracking and analysis of data collected from various sources. The schema also accommodates the scenario where multiple users can gather data from the same location, ensuring comprehensive data collection and analysis capabilities.
-
+This schema provides a structured approach to managing and analyzing water quality data. The `Potability` field in the `WaterQuality` table is initially set to NULL and updated based on predictions from the machine learning model. By linking water quality records to users and locations, the schema supports effective tracking and analysis of data collected from various sources. The design also accommodates multiple users at a single location, ensuring comprehensive data collection and analysis capabilities.
