@@ -6,7 +6,7 @@ from database import engine, SessionLocal
 from sqlalchemy.orm import Session
 
 app = FastAPI()
-models.Base.metadata.create_all(bind=database.engine)
+models.Base.metadata.create_all(bind=engine)
 
 class LocationBase(BaseModel):
     location_id: int
@@ -44,7 +44,7 @@ async def read_location(location_id: int, db: db_dependency):
         raise HTTPException(status_code=404, detail= 'Location not found')
     return location
 
-@app.delte("/locations/{location_id}", status_code = status.HTTP_200_OK)
+@app.delete("/locations/{location_id}", status_code = status.HTTP_200_OK)
 async def delete_location(location_id: int, db: db_dependency):
     db_location= db.query(models.Location).filter(models.Location.id == location_id).first()
     if db_location is None:
