@@ -1,8 +1,14 @@
 from pymongo import MongoClient, ASCENDING
 
-# Connect to MongoDB
-client = MongoClient('mongodb+srv://gatwaza:rGi31HknO0g3OXrt@cluster0.pa5u5ln.mongodb.net/')
-db = client['water_quality_db']
+# Load environment variables from .env file
+load_dotenv()
+
+# Get the MongoDB URI from the environment variable
+MONGODB_URI = os.getenv("MONGODB_URI")
+
+# Connect to the MongoDB cluster
+client = MongoClient(MONGODB_URI)
+db = client.water_quality_db
 
 # Create collections
 users = db['users']
@@ -16,9 +22,9 @@ locations.create_index([('name', ASCENDING)], unique=True)
 # Sample data insertion
 # Insert a user
 user_id = users.insert_one({
-    "name": "John Doe",
-    "email": "johndoe@example.com",
-    "profession": "Hydrologist"
+    'name': 'John Doe',
+    'email': 'john.doe@example.com',
+    'profession': 'Researcher'
 }).inserted_id
 
 # Insert a location
