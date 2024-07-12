@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Depends, HTTPException, status
 from pydantic import BaseModel
+from datetime import datetime
 from typing import Annotated
 import models
 from database import engine, SessionLocal
@@ -21,7 +22,23 @@ class UserBase(BaseModel):
     email: str
     profession: str
 
+class WaterQuality(BaseModel):
+    ph: float
+    hardness: float
+    solids: float
+    chloramines: float
+    sulfate: float
+    conductivity: float
+    organic_carbon: float
+    trihalomethanes: float
+    turbidity: float
+    created_at: datetime = None
 
+class Prediction(BaseModel):
+    water_quality_id: str
+    prediction: int
+    created_at: datetime = None
+    
 def get_db():
     db = SessionLocal()
     try:
